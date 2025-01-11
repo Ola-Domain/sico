@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pikone - Responsive Video Carousel</title>
+  <style>
+    /* General styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .carousel-container {
+      width: 80%;
+      max-width: 1200px;
+      height: 500px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .carousel-wrapper {
+      display: flex;
+      transition: transform 0.6s ease-in-out;
+      height: 100%;
+    }
+
+    .carousel-item {
+      flex: 0 0 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    video {
+      width: 80%;
+      height: 80%;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    .controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+
+    .control-button {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .control-button:hover {
+      background: rgba(255, 255, 255, 0.7);
+      color: black;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-container {
+        height: 400px;
+      }
+
+      video {
+        width: 100%;
+        height: auto;
+      }
+
+      .control-button {
+        font-size: 1.5rem;
+      }
+
+      .footer {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="carousel-container">
+    <div class="carousel-wrapper">
+      <!-- Video 1 -->
+      <div class="carousel-item">
+        <video autoplay muted loop>
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <!-- Video 2 -->
+      <div class="carousel-item">
+        <video autoplay muted loop>
+          <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <!-- Video 3 -->
+      <div class="carousel-item">
+        <video autoplay muted loop>
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <!-- Video 4 -->
+      <div class="carousel-item">
+        <video autoplay muted loop>
+          <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <!-- Video 5 -->
+      <div class="carousel-item">
+        <video autoplay muted loop>
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="control-button" id="prev-btn">&#9664;</button>
+      <button class="control-button" id="next-btn">&#9654;</button>
+    </div>
+    <div class="footer">
+      <p>&copy; 2024 Pikone. All rights reserved.</p>
+    </div>
+  </div>
+
+  <script>
+    const carouselWrapper = document.querySelector('.carousel-wrapper');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    let currentIndex = 0;
+    let startX = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let isDragging = false;
+
+    const moveToSlide = (index) => {
+      carouselWrapper.style.transform = `translateX(-${index * 100}%)`;
+      currentTranslate = -index * 100;
+    };
+
+    // Button Clicks
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        moveToSlide(currentIndex);
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < 4) { // Adjust based on the number of videos
+        currentIndex++;
+        moveToSlide(currentIndex);
+      }
+    });
+
+    // Touch and Mouse Swipe
+    carouselWrapper.addEventListener('touchstart', startDrag);
+    carouselWrapper.addEventListener('mousedown', startDrag);
+
+    carouselWrapper.addEventListener('touchmove', dragMove);
+    carouselWrapper.addEventListener('mousemove', dragMove);
+
+    carouselWrapper.addEventListener('touchend', endDrag);
+    carouselWrapper.addEventListener('mouseup', endDrag);
+    carouselWrapper.addEventListener('mouseleave', endDrag);
+
+    function startDrag(event) {
+      isDragging = true;
+      startX = getPositionX(event);
+      prevTranslate = currentTranslate;
+    }
+
+    function dragMove(event) {
+      if (!isDragging) return;
+      const currentPosition = getPositionX(event);
+      currentTranslate = prevTranslate + currentPosition - startX;
+      carouselWrapper.style.transform = `translateX(${currentTranslate}px)`;
+    }
+
+    function endDrag() {
+      isDragging = false;
+      const movedBy = currentTranslate - prevTranslate;
+
+      if (movedBy < -50 && currentIndex < 4) currentIndex++;
+      if (movedBy > 50 && currentIndex > 0) currentIndex--;
+
+      moveToSlide(currentIndex);
+    }
+
+    function getPositionX(event) {
+      return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+    }
+  </script>
+</body>
+</html>

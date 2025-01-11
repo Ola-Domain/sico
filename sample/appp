@@ -1,0 +1,52 @@
+import pyodbc
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+# Database connection details
+server = 'mypikonedbserveruk.database.windows.net'
+database = 'PikoneDB'
+username = 'Cypherx360'
+password = 'Ola-Mide&2'
+driver = '{ODBC Driver 17 for SQL Server}'
+
+# Function to connect to Azure SQL Database
+def get_db_connection():
+    conn = pyodbc.connect(f'DRIVER={driver};SERVER={server};PORT=1433;DATABASE={database};UID={username};PWD={password}')
+    return conn
+
+# Route to manage videos (GET and POST)
+@app.route('/videos', methods=['GET', 'POST'])
+def manage_videos():
+    if request.method == 'POST':
+        video = request.json
+        
+        # Get the database connection
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Insert the video into the database (ensure your table has the appropriate columns)
+        cursor.execute('INSERT INTO Videos (title, description) VALUES (?, ?)', 
+                       video['title'], video['description'])
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        return jsonify({'message': 'Video uploaded successfully'}), 201
+
+    # Retrieve videos from the database
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM Videos')  # Adjust query based on your table schema
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    # Convert rows to a list of dictionaries (optional)
+    videos = [{'id': row[0], 'title': row[1], 'description': row[2]} for row in rows]
+    return jsonify(videos)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+

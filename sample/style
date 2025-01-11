@@ -1,0 +1,55 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    background-color: #ff6f61;
+    color: white;
+    padding: 1em 0;
+}
+
+main {
+    padding: 1em;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+footer {
+    text-align: center;
+    background-color: #ff6f61;
+    color: white;
+    padding: 1em 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Dashboard styles */
+#dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.video-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.video-card h2 {
+    margin: 0 0 0.5em;
+}
+
+.video-card p {
+    margin: 0.5em 0;
+}
+
