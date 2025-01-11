@@ -1,4 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField
+from wtforms.validators import InputRequired
 from flask_wtf.csrf import CSRFProtect
 import sqlite3
 
