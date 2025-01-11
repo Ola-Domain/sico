@@ -1,0 +1,384 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   SiCO
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+ </head>
+ <body class="bg-black text-white flex justify-center items-center h-screen overflow-hidden">
+  <div class="app flex flex-col h-screen w-full max-w-md overflow-hidden">
+   <div class="header flex justify-between items-center p-4 bg-gray-900">
+    <div class="logo text-2xl font-bold">
+     SiCO
+    </div>
+    <div class="search-bar flex-1 mx-4">
+     <input class="w-full p-2 rounded-full text-black" id="searchInput" oninput="searchVideos()" placeholder="Search" type="text"/>
+    </div>
+    <div class="icons flex items-center">
+     <i class="fas fa-user ml-4 text-xl cursor-pointer" onclick="openModal('loginModal')">
+     </i>
+     <i class="fas fa-inbox ml-4 text-xl cursor-pointer" onclick="openModal('inboxModal')">
+     </i>
+     <i class="fas fa-ellipsis-h ml-4 text-xl cursor-pointer" onclick="openModal('moreOptionsModal')">
+     </i>
+    </div>
+   </div>
+   <div class="content flex-1 overflow-y-auto" id="videoContainer">
+    <div class="video relative h-screen flex flex-col justify-end p-4">
+     <video autoplay="" class="absolute top-0 left-0 w-full h-full object-cover" loop="" muted="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+     </video>
+     <div class="details mb-4 z-10">
+      <div class="username text-lg font-bold">
+       @user1
+      </div>
+      <div class="description my-2">
+       This is a description of the video.
+      </div>
+      <div class="music flex items-center">
+       <i class="fas fa-music mr-2">
+       </i>
+       <div>
+        Original Sound - user1
+       </div>
+      </div>
+     </div>
+     <div class="actions absolute right-4 bottom-24 flex flex-col items-center z-10">
+      <i class="fas fa-heart text-2xl mb-4 cursor-pointer" onclick="likeVideo(this)">
+      </i>
+      <i class="fas fa-comment text-2xl mb-4 cursor-pointer" onclick="openModal('commentModal')">
+      </i>
+      <i class="fas fa-share text-2xl cursor-pointer">
+      </i>
+     </div>
+    </div>
+    <div class="video relative h-screen flex flex-col justify-end p-4">
+     <video autoplay="" class="absolute top-0 left-0 w-full h-full object-cover" loop="" muted="" src="https://www.w3schools.com/html/movie.mp4">
+     </video>
+     <div class="details mb-4 z-10">
+      <div class="username text-lg font-bold">
+       @user2
+      </div>
+      <div class="description my-2">
+       This is another description of the video.
+      </div>
+      <div class="music flex items-center">
+       <i class="fas fa-music mr-2">
+       </i>
+       <div>
+        Original Sound - user2
+       </div>
+      </div>
+     </div>
+     <div class="actions absolute right-4 bottom-24 flex flex-col items-center z-10">
+      <i class="fas fa-heart text-2xl mb-4 cursor-pointer" onclick="likeVideo(this)">
+      </i>
+      <i class="fas fa-comment text-2xl mb-4 cursor-pointer" onclick="openModal('commentModal')">
+      </i>
+      <i class="fas fa-share text-2xl cursor-pointer">
+      </i>
+     </div>
+    </div>
+    <div class="video relative h-screen flex flex-col justify-end p-4">
+     <video autoplay="" class="absolute top-0 left-0 w-full h-full object-cover" loop="" muted="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+     </video>
+     <div class="details mb-4 z-10">
+      <div class="username text-lg font-bold">
+       @user3
+      </div>
+      <div class="description my-2">
+       Yet another description of the video.
+      </div>
+      <div class="music flex items-center">
+       <i class="fas fa-music mr-2">
+       </i>
+       <div>
+        Original Sound - user3
+       </div>
+      </div>
+     </div>
+     <div class="actions absolute right-4 bottom-24 flex flex-col items-center z-10">
+      <i class="fas fa-heart text-2xl mb-4 cursor-pointer" onclick="likeVideo(this)">
+      </i>
+      <i class="fas fa-comment text-2xl mb-4 cursor-pointer" onclick="openModal('commentModal')">
+      </i>
+      <i class="fas fa-share text-2xl cursor-pointer">
+      </i>
+     </div>
+    </div>
+    <div class="video relative h-screen flex flex-col justify-end p-4">
+     <video autoplay="" class="absolute top-0 left-0 w-full h-full object-cover" loop="" muted="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+     </video>
+     <div class="details mb-4 z-10">
+      <div class="username text-lg font-bold">
+       @user4
+      </div>
+      <div class="description my-2">
+       A cool video by user4.
+      </div>
+      <div class="music flex items-center">
+       <i class="fas fa-music mr-2">
+       </i>
+       <div>
+        Original Sound - user4
+       </div>
+      </div>
+     </div>
+     <div class="actions absolute right-4 bottom-24 flex flex-col items-center z-10">
+      <i class="fas fa-heart text-2xl mb-4 cursor-pointer" onclick="likeVideo(this)">
+      </i>
+      <i class="fas fa-comment text-2xl mb-4 cursor-pointer" onclick="openModal('commentModal')">
+      </i>
+      <i class="fas fa-share text-2xl cursor-pointer">
+      </i>
+     </div>
+    </div>
+    <div class="video relative h-screen flex flex-col justify-end p-4">
+     <video autoplay="" class="absolute top-0 left-0 w-full h-full object-cover" loop="" muted="" src="https://www.w3schools.com/html/movie.mp4">
+     </video>
+     <div class="details mb-4 z-10">
+      <div class="username text-lg font-bold">
+       @user5
+      </div>
+      <div class="description my-2">
+       Another awesome video by user5.
+      </div>
+      <div class="music flex items-center">
+       <i class="fas fa-music mr-2">
+       </i>
+       <div>
+        Original Sound - user5
+       </div>
+      </div>
+     </div>
+     <div class="actions absolute right-4 bottom-24 flex flex-col items-center z-10">
+      <i class="fas fa-heart text-2xl mb-4 cursor-pointer" onclick="likeVideo(this)">
+      </i>
+      <i class="fas fa-comment text-2xl mb-4 cursor-pointer" onclick="openModal('commentModal')">
+      </i>
+      <i class="fas fa-share text-2xl cursor-pointer">
+      </i>
+     </div>
+    </div>
+   </div>
+   <div class="footer flex justify-around items-center p-2 bg-gray-900">
+    <i class="fas fa-home text-2xl cursor-pointer">
+    </i>
+    <i class="fas fa-search text-2xl cursor-pointer">
+    </i>
+    <i class="fas fa-plus-square text-2xl cursor-pointer" onclick="openModal('uploadModal')">
+    </i>
+    <i class="fas fa-heart text-2xl cursor-pointer">
+    </i>
+    <i class="fas fa-user text-2xl cursor-pointer" onclick="openModal('profileModal')">
+    </i>
+   </div>
+  </div>
+  <!-- Login Modal -->
+  <div class="modal fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden" id="loginModal">
+   <div class="modal-content bg-gray-800 p-6 rounded-lg relative w-11/12 max-w-md">
+    <span class="close absolute top-2 right-2 text-2xl cursor-pointer" onclick="closeModal('loginModal')">
+     ×
+    </span>
+    <h2 class="text-xl mb-4">
+     Login
+    </h2>
+    <input class="w-full p-2 mb-2 rounded" id="loginUsername" placeholder="Username" type="text"/>
+    <input class="w-full p-2 mb-4 rounded" id="loginPassword" placeholder="Password" type="password"/>
+    <button class="w-full p-2 bg-red-600 rounded text-white" onclick="login()">
+     Login
+    </button>
+    <p class="text-center mt-4">
+     Don't have an account?
+     <span class="text-blue-500 cursor-pointer" onclick="openModal('registerModal')">
+      Register
+     </span>
+    </p>
+   </div>
+  </div>
+  <!-- Register Modal -->
+  <div class="modal fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden" id="registerModal">
+   <div class="modal-content bg-gray-800 p-6 rounded-lg relative w-11/12 max-w-md">
+    <span class="close absolute top-2 right-2 text-2xl cursor-pointer" onclick="closeModal('registerModal')">
+     ×
+    </span>
+    <h2 class="text-xl mb-4">
+     Register
+    </h2>
+    <input class="w-full p-2 mb-2 rounded" id="registerUsername" placeholder="Username" type="text"/>
+    <input class="w-full p-2 mb-2 rounded" id="registerEmail" placeholder="Email" type="email"/>
+    <input class="w-full p-2 mb-4 rounded" id="registerPassword" placeholder="Password" type="password"/>
+    <button class="w-full p-2 bg-red-600 rounded text-white" onclick="register()">
+     Register
+    </button>
+   </div>
+  </div>
+  <!-- Profile Modal -->
+  <div class="modal fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden" id="profileModal">
+   <div class="modal-content bg-gray-800 p-6 rounded-lg relative w-11/12 max-w-md">
+    <span class="close absolute top-2 right-2 text-2xl cursor-pointer" onclick="closeModal('profileModal')">
+     ×
+    </span>
+    <div class="profile flex flex-col items-center">
+     <img alt="User profile picture" class="w-24 h-24 rounded-full mb-4 cursor-pointer" id="profilePic" onclick="updateProfilePic()" src="https://placehold.co/100x100"/>
+     <div class="username text-2xl font-bold mb-2" id="profileUsername">
+      @user1
+     </div>
+     <div class="stats flex justify-around w-full mb-4">
+      <div class="text-center">
+       <span class="block text-xl font-bold" id="profileFollowers">
+        500
+       </span>
+       Followers
+      </div>
+      <div class="text-center">
+       <span class="block text-xl font-bold" id="profileFollowing">
+        100
+       </span>
+       Following
+      </div>
+      <div class="text-center">
+       <span class="block text-xl font-bold" id="profileLikes">
+        1000
+       </span>
+       Likes
+      </div>
+     </div>
+     <div class="bio text-center mb-4 cursor-pointer" id="profileBio" onclick="updateBio()">
+      This is the user bio.
+     </div>
+     <div class="videos flex flex-wrap justify-around w-full" id="profileVideos">
+      <video autoplay="" class="w-24 h-36 m-1 object-cover" loop="" muted="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+      </video>
+      <video autoplay="" class="w-24 h-36 m-1 object-cover" loop="" muted="" src="https://www.w3schools.com/html/movie.mp4">
+      </video>
+      <video autoplay="" class="w-24 h-36 m-1 object-cover" loop="" muted="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+      </video>
+      <video autoplay="" class="w-24 h-36 m-1 object-cover" loop="" muted="" src="https://www.w3schools.com/html/movie.mp4">
+      </video>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- Comment Modal -->
+  <div class="modal fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden" id="commentModal">
+   <div class="modal-content bg-gray-800 p-6 rounded-lg relative w-11/12 max-w-md">
+    <span class="close absolute top-2 right-2 text-2xl cursor-pointer" onclick="closeModal('commentModal')">
+     ×
+    </span>
+    <h2 class="text-xl mb-4">
+     Comments
+    </h2>
+    <div class="comments mb-4">
+     <p>
+      @user2: Great video!
+     </p>
+     <p>
+      @user3: Loved it!
+     </p>
+     <p>
+      @user4: Amazing!
+     </p>
+     <p>
+      @user5: So cool!
+     </p>
+    </div>
+    <input class="w-full p-2 mb-2 rounded" placeholder="Add a comment..." type="text"/>
+    <button class="w-full p-2 bg-red-600 rounded text-white">
+     Comment
+    </button>
+   </div>
+  </div>
+  <!-- Upload Modal -->
+  <div class="modal fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden" id="uploadModal">
+   <div class="modal-content bg-gray-800 p-6 rounded-lg relative w-11/12 max-w-md">
+    <span class="close absolute top-2 right-2 text-2xl cursor-pointer" onclick="closeModal('uploadModal')">
+     ×
+    </span>
+    <h2 class="text-xl mb-4">
+     Upload Video
+    </h2>
+    <input accept="video/*" class="w-full p-2 mb-2 rounded" id="uploadFile" type="file"/>
+    <input class="w-full p-2 mb-4 rounded" id="uploadDescription" placeholder="Description" type="text"/>
+    <button class="w-full p-2 bg-red-600 rounded text-white" onclick="uploadVideo()">
+     Upload
+    </button>
+   </div>
+  </div>
+  <!-- Inbox Modal -->
+  <div class="modal fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden" id="inboxModal">
+   <div class="modal-content bg-gray-800 p-6 rounded-lg relative w-11/12 max-w-md">
+    <span class="close absolute top-2 right-2 text-2xl cursor-pointer" onclick="closeModal('inboxModal')">
+     ×
+    </span>
+    <h2 class="text-xl mb-4">
+     Inbox
+    </h2>
+    <div class="messages mb-4" id="messagesContainer">
+     <p>
+      @user2: Hey, how are you?
+     </p>
+     <p>
+      @user3: Let's collaborate!
+     </p>
+     <p>
+      @user4: Check out my new video!
+     </p>
+     <p>
+      @user5: Great content!
+     </p>
+    </div>
+    <input class="w-full p-2 mb-2 rounded" id="messageInput" placeholder="Type a message..." type="text"/>
+    <button class="w-full p-2 bg-red-600 rounded text-white" onclick="sendMessage()">
+     Send
+    </button>
+   </div>
+  </div>
+  <!-- More Options Modal -->
+  <div class="modal fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden" id="moreOptionsModal">
+   <div class="modal-content bg-gray-800 p-6 rounded-lg relative w-11/12 max-w-md">
+    <span class="close absolute top-2 right-2 text-2xl cursor-pointer" onclick="closeModal('moreOptionsModal')">
+     ×
+    </span>
+    <h2 class="text-xl mb-4">
+     More Options
+    </h2>
+    <button class="w-full p-2 bg-red-600 rounded text-white" onclick="openModal('uploadModal')">
+     Upload
+    </button>
+    <button class="w-full p-2 bg-red-600 rounded text-white mt-2" onclick="openModal('liveStreamModal')">
+     Go Live
+    </button>
+   </div>
+  </div>
+  <!-- Chat Box -->
+  <div class="chat-box fixed bottom-0 right-0 w-80 h-96 bg-gray-800 rounded-t-lg flex flex-col z-50">
+   <div class="header p-4 bg-gray-900 rounded-t-lg flex justify-between items-center">
+    <h2 class="text-lg">
+     Chat
+    </h2>
+    <span class="close text-2xl cursor-pointer" onclick="toggleChatBox()">
+     ×
+    </span>
+   </div>
+   <div class="messages flex-1 p-4 overflow-y-auto" id="chatMessages">
+    <p>
+     @user1: Hello everyone!
+    </p>
+    <p>
+     @user2: Hi!
+    </p>
+    <p>
+     @user3: How's it going?
+    </p>
+    <p>
+     @user4: Great
+    </p>
+   </div>
+  </div>
+ </body>
+</html>
