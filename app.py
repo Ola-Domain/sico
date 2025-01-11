@@ -1,89 +1,96 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, FileField
-from wtforms.validators import InputRequired
-from flask_wtf.csrf import CSRFProtect
-import sqlite3
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.secret_key = '903d40cfdaf17dab3e286e6ffe7a15d8783585bd1360cb6f6c9256ede2bf6a47'  # Set a secret key for CSRF protection
-csrf = CSRFProtect(app)
+app.secret_key = '03907be69630555111fe0d7d28bef3571d6caaf6aea1a7cc7a2a06e2cf403cee'
 
-# Database initialization
-def init_db():
-    conn = sqlite3.connect('database.db')
-    conn.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)')
-    conn.execute('CREATE TABLE IF NOT EXISTS videos (id INTEGER PRIMARY KEY, filepath TEXT, caption TEXT)')
-    conn.close()
+# Simulated database for demonstration
+users = {}
+videos = []
 
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[InputRequired()])
-    password = PasswordField('Password', validators=[InputRequired()])
+# Path for uploaded videos
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = {'mp4', 'mov', 'avi'}
 
-class RegisterForm(FlaskForm):
-    username = StringField('Username', validators=[InputRequired()])
-    password = PasswordField('Password', validators=[InputRequired()])
+# Helper function to check allowed file types
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-class UploadForm(FlaskForm):
-    video = FileField('Video', validators=[InputRequired()])
-    caption = StringField('Caption', validators=[InputRequired()])
-
+# Routes
 @app.route('/')
-def index():
-    conn = sqlite3.connect('database.db')
-    cursor = conn.execute('SELECT filepath, caption FROM videos')
-    videos = [{'filepath': row[0], 'caption': row[1]} for row in cursor.fetchall()]
-    conn.close()
-    return render_template('index.html', videos=videos)
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
-        conn = sqlite3.connect('database.db')
-        cursor = conn.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password))
-        user = cursor.fetchone()
-        conn.close()
-        if user:
-            return redirect(url_for('index'))
-        else:
-            flash('Invalid username or password')
-    return render_template('login.html', form=form)
+def home():
+    return render_template('index.html', videos=videos)  # Display uploaded videos
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
-        conn = sqlite3.connect('database.db')
-        cursor = conn.execute('SELECT * FROM users WHERE username = ?', (username,))
-        if cursor.fetchone():
-            flash('Username already exists')
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        
+        # Check if user already exists
+        if username in users:
+            flash('Username already exists!', 'error')
+            return redirect(url_for('register'))
+
+        # Save user
+        users[username] = {'email': email, 'password': password}
+        flash('Registration successful! Please log in.', 'success')
+        return redirect(url_for('login'))
+
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # Authenticate user
+        if username in users and users[username]['password'] == password:
+            session['username'] = username
+            flash('Login successful!', 'success')
+            return redirect(url_for('home'))
         else:
-            conn.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
-            conn.commit()
-            conn.close()
-            return redirect(url_for('login'))
-    return render_template('register.html', form=form)
+            flash('Invalid username or password!', 'error')
+    
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('home'))
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
-    form = UploadForm()
-    if form.validate_on_submit():
-        video = form.video.data
-        caption = form.caption.data
-        filepath = 'uploads/' + video.filename
-        video.save('static/' + filepath)
-        conn = sqlite3.connect('database.db')
-        conn.execute('INSERT INTO videos (filepath, caption) VALUES (?, ?)', (filepath, caption))
-        conn.commit()
-        conn.close()
-        return redirect(url_for('index'))
-    return render_template('upload.html', form=form)
+    if 'username' not in session:
+        flash('Please log in to upload videos.', 'error')
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        title = request.form['title']
+        file = request.files['file']
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_path)
+
+            # Save video metadata
+            videos.append({'title': title, 'path': file_path, 'user': session['username']})
+            flash('Video uploaded successfully!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid file format! Only MP4, MOV, and AVI files are allowed.', 'error')
+
+    return render_template('upload.html')
 
 if __name__ == '__main__':
-    init_db()
+    # Create upload folder if it doesn't exist
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
+    
     app.run(debug=True)
