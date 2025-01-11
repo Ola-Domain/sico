@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_wtf.csrf import CSRFProtect
 import sqlite3
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Set a secret key for CSRF protection
+csrf = CSRFProtect(app)
 
 # Database initialization
 def init_db():
@@ -21,8 +24,17 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # Add authentication logic here
-        return redirect(url_for('index'))
+        username = request.form['username']
+        password = request.form['password']
+        conn = sqlite3.connect('database.db')
+        cursor = conn.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username, password))
+        user = cursor.fetchone()
+        conn.close()
+        if user:
+            return redirect(url_for('index'))
+        else:
+            flash('Invalid username or password')
+            return render_template('login.html', error='Invalid username or password')
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -31,6 +43,11 @@ def register():
         username = request.form['username']
         password = request.form['password']
         conn = sqlite3.connect('database.db')
+        cursor = conn.execute('SELECT * FROM users WHERE username = ?', (username,))
+        if cursor.fetchone():
+            conn.close()
+            flash('Username already exists')
+            return render_template('register.html', error='Username already exists')
         conn.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
         conn.commit()
         conn.close()
