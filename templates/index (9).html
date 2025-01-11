@@ -1,15 +1,10 @@
-
-
-### Complete Frontend Code
-
 ```html
-<!DOCTYPE html>
 <html lang="en">
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   TikTok Clone
+   SiCO
   </title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
@@ -56,6 +51,7 @@
             border-radius: 20px;
             border: none;
             outline: none;
+            color: #000;
         }
         .header .icons {
             display: flex;
@@ -190,6 +186,7 @@
             height: 100px;
             border-radius: 50%;
             margin-bottom: 20px;
+            cursor: pointer;
         }
         .profile .username {
             font-size: 24px;
@@ -213,6 +210,7 @@
         .profile .bio {
             text-align: center;
             margin-bottom: 20px;
+            cursor: pointer;
         }
         .profile .videos {
             display: flex;
@@ -289,7 +287,7 @@
   <div class="app">
    <div class="header">
     <div class="logo">
-     TikTok
+     SiCO
     </div>
     <div class="search-bar">
      <input id="searchInput" oninput="searchVideos()" placeholder="Search" type="text"/>
@@ -304,7 +302,141 @@
     </div>
    </div>
    <div class="content" id="videoContainer">
-    <!-- Videos will be dynamically added here -->
+    <div class="video" data-description="This is a description of the video." data-username="@user1">
+     <video autoplay="" loop="" muted="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+     </video>
+     <div class="details">
+      <div class="username">
+       @user1
+      </div>
+      <div class="description">
+       This is a description of the video.
+      </div>
+      <div class="music">
+       <i class="fas fa-music">
+       </i>
+       <div>
+        Original Sound - user1
+       </div>
+      </div>
+     </div>
+     <div class="actions">
+      <i class="fas fa-heart" onclick="likeVideo(this)">
+      </i>
+      <i class="fas fa-comment" onclick="openModal('commentModal')">
+      </i>
+      <i class="fas fa-share">
+      </i>
+     </div>
+    </div>
+    <div class="video" data-description="This is another description of the video." data-username="@user2">
+     <video autoplay="" loop="" muted="" src="https://www.w3schools.com/html/movie.mp4">
+     </video>
+     <div class="details">
+      <div class="username">
+       @user2
+      </div>
+      <div class="description">
+       This is another description of the video.
+      </div>
+      <div class="music">
+       <i class="fas fa-music">
+       </i>
+       <div>
+        Original Sound - user2
+       </div>
+      </div>
+     </div>
+     <div class="actions">
+      <i class="fas fa-heart" onclick="likeVideo(this)">
+      </i>
+      <i class="fas fa-comment" onclick="openModal('commentModal')">
+      </i>
+      <i class="fas fa-share">
+      </i>
+     </div>
+    </div>
+    <div class="video" data-description="Yet another description of the video." data-username="@user3">
+     <video autoplay="" loop="" muted="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+     </video>
+     <div class="details">
+      <div class="username">
+       @user3
+      </div>
+      <div class="description">
+       Yet another description of the video.
+      </div>
+      <div class="music">
+       <i class="fas fa-music">
+       </i>
+       <div>
+        Original Sound - user3
+       </div>
+      </div>
+     </div>
+     <div class="actions">
+      <i class="fas fa-heart" onclick="likeVideo(this)">
+      </i>
+      <i class="fas fa-comment" onclick="openModal('commentModal')">
+      </i>
+      <i class="fas fa-share">
+      </i>
+     </div>
+    </div>
+    <div class="video" data-description="A cool video by user4." data-username="@user4">
+     <video autoplay="" loop="" muted="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+     </video>
+     <div class="details">
+      <div class="username">
+       @user4
+      </div>
+      <div class="description">
+       A cool video by user4.
+      </div>
+      <div class="music">
+       <i class="fas fa-music">
+       </i>
+       <div>
+        Original Sound - user4
+       </div>
+      </div>
+     </div>
+     <div class="actions">
+      <i class="fas fa-heart" onclick="likeVideo(this)">
+      </i>
+      <i class="fas fa-comment" onclick="openModal('commentModal')">
+      </i>
+      <i class="fas fa-share">
+      </i>
+     </div>
+    </div>
+    <div class="video" data-description="Another awesome video by user5." data-username="@user5">
+     <video autoplay="" loop="" muted="" src="https://www.w3schools.com/html/movie.mp4">
+     </video>
+     <div class="details">
+      <div class="username">
+       @user5
+      </div>
+      <div class="description">
+       Another awesome video by user5.
+      </div>
+      <div class="music">
+       <i class="fas fa-music">
+       </i>
+       <div>
+        Original Sound - user5
+       </div>
+      </div>
+     </div>
+     <div class="actions">
+      <i class="fas fa-heart" onclick="likeVideo(this)">
+      </i>
+      <i class="fas fa-comment" onclick="openModal('commentModal')">
+      </i>
+      <i class="fas fa-share">
+      </i>
+     </div>
+    </div>
    </div>
    <div class="footer">
     <i class="fas fa-home">
@@ -364,7 +496,7 @@
     <span class="close" onclick="closeModal('profileModal')">
      ×
     </span>
-    <img alt="User profile picture" src="https://placehold.co/100x100"/>
+    <img alt="User profile picture" id="profilePic" onclick="updateProfilePic()" src="https://placehold.co/100x100"/>
     <div class="username" id="profileUsername">
      @user1
     </div>
@@ -388,11 +520,11 @@
       Likes
      </div>
     </div>
-    <div class="bio" id="profileBio">
+    <div class="bio" id="profileBio" onclick="updateBio()">
      This is the user bio.
     </div>
     <div class="videos" id="profileVideos">
-     <!-- User videos will be dynamically added here -->
+     <!-- User's uploaded videos will be dynamically added here -->
     </div>
    </div>
   </div>
@@ -464,34 +596,9 @@
      More Options
     </h2>
     <button onclick="openModal('uploadModal')">
-     Upload Video
-    </button>
-    <button onclick="logout()">
-     Logout
+     Upload
     </button>
    </div>
   </div>
-  <!-- Chat Box -->
-  <div class="chat-box hidden" id="chatBox">
-   <div class="header">
-    <h2>
-     Chat
-    </h2>
-    <span class="close" onclick="closeChatBox()">
-     ×
-    </span>
-   </div>
-   <div class="messages" id="chatMessagesContainer">
-    <!-- Chat messages will be dynamically added here -->
-   </div>
-   <div class="input">
-    <input id="chatMessageInput" placeholder="Type a message..." type="text"/>
-    <button onclick="sendChatMessage()">
-     Send
-    </button>
-   </div>
-  </div>
-  <script>
-  </script>
  </body>
 </html>
