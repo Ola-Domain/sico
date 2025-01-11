@@ -1,20 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Login - PikOne{% endblock %}
 {% block content %}
-<div class="d-flex justify-content-center align-items-center vh-100">
-  <form action="/login" method="POST" class="w-25 p-4 bg-dark text-white rounded">
-    {{ form.hidden_tag() }}
-    {% if error %}
-      <p class="text-danger">{{ error }}</p>
-    {% endif %}
-    <h2 class="text-center mb-4">Login</h2>
-    <div class="mb-3">
-      {{ form.username(class="form-control", placeholder="Username") }}
-    </div>
-    <div class="mb-3">
-      {{ form.password(class="form-control", placeholder="Password") }}
-    </div>
-    <button type="submit" class="btn btn-danger w-100">Login</button>
-  </form>
-</div>
+<form action="/login" method="POST">
+  <input type="text" name="username" placeholder="Username" required>
+  <input type="password" name="password" placeholder="Password" required>
+  <button type="submit">Login</button>
+</form>
 {% endblock %}
