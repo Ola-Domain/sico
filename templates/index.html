@@ -14,7 +14,6 @@
             font-size: 24px;
             font-weight: bold;
             -webkit-text-stroke: 1px red;
-            font-weight: bold;
         }
   </style>
  </head>
@@ -25,7 +24,7 @@
      SiCO
     </div>
     <div class="search-bar flex-1 mx-4">
-     <input class="w-full p-2 rounded-full text-black placeholder-gray-500" id="searchInput" oninput="searchVideos()" placeholder="Search" type="text"/>
+     <input class="w-full p-2 rounded-full text-black" id="searchInput" oninput="searchVideos()" placeholder="Search" type="text"/>
     </div>
     <div class="icons flex items-center">
      <i class="fas fa-user ml-4 text-xl cursor-pointer" onclick="openModal('loginModal')">
@@ -125,7 +124,7 @@
      ×
     </span>
     <div class="profile flex flex-col items-center">
-     <img alt="User profile picture" class="w-24 h-24 rounded-full mb-4 cursor-pointer" id="profilePic" onclick="openModal('updateProfilePicModal')" src="https://placehold.co/100x100"/>
+     <img alt="User profile picture" class="w-24 h-24 rounded-full mb-4 cursor-pointer" id="profilePic" onclick="updateProfilePic()" src="https://placehold.co/100x100"/>
      <div class="username text-2xl font-bold mb-2" id="profileUsername">
       @user1
      </div>
@@ -149,7 +148,7 @@
        Likes
       </div>
      </div>
-     <div class="bio text-center mb-4 cursor-pointer" id="profileBio" onclick="openModal('updateBioModal')">
+     <div class="bio text-center mb-4 cursor-pointer" id="profileBio" onclick="updateBio()">
       This is the user bio.
      </div>
      <div class="videos flex flex-wrap justify-around w-full" id="profileVideos">
@@ -163,36 +162,6 @@
       </video>
      </div>
     </div>
-   </div>
-  </div>
-  <!-- Update Profile Pic Modal -->
-  <div class="modal fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden" id="updateProfilePicModal">
-   <div class="modal-content bg-gray-800 p-6 rounded-lg relative w-11/12 max-w-md">
-    <span class="close absolute top-2 right-2 text-2xl cursor-pointer" onclick="closeModal('updateProfilePicModal')">
-     ×
-    </span>
-    <h2 class="text-xl mb-4">
-     Update Profile Picture
-    </h2>
-    <input accept="image/*" class="w-full p-2 mb-2 rounded" id="newProfilePic" type="file"/>
-    <button class="w-full p-2 bg-red-600 rounded text-white" onclick="updateProfilePic()">
-     Update
-    </button>
-   </div>
-  </div>
-  <!-- Update Bio Modal -->
-  <div class="modal fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden" id="updateBioModal">
-   <div class="modal-content bg-gray-800 p-6 rounded-lg relative w-11/12 max-w-md">
-    <span class="close absolute top-2 right-2 text-2xl cursor-pointer" onclick="closeModal('updateBioModal')">
-     ×
-    </span>
-    <h2 class="text-xl mb-4">
-     Update Bio
-    </h2>
-    <textarea class="w-full p-2 mb-2 rounded" id="newBio" placeholder="Enter your new bio"></textarea>
-    <button class="w-full p-2 bg-red-600 rounded text-white" onclick="updateBio()">
-     Update
-    </button>
    </div>
   </div>
   <!-- Comment Modal -->
@@ -305,38 +274,58 @@
     </button>
    </div>
   </div>
-  <!-- Chat Box -->
-  <div class="chat-box fixed bottom-0 right-0 w-80 h-96 bg-gray-800 rounded-t-lg flex flex-col z-50 hidden" id="chatBox">
-   <div class="header p-4 bg-gray-900 rounded-t-lg flex justify-between items-center">
-    <h2 class="text-lg">
-     Group Chat
-    </h2>
-    <span class="close text-2xl cursor-pointer" onclick="toggleChatBox()">
-     ×
-    </span>
-   </div>
-   <div class="messages flex-1 p-4 overflow-y-auto" id="chatMessagesContainer">
-    <p>
-     @user1: Hello everyone!
-    </p>
-    <p>
-     @user2: Hi!
-    </p>
-    <p>
-     @user3: How's it going?
-    </p>
-    <p>
-     @user4: Great!
-    </p>
-   </div>
-   <div class="input flex p-4 bg-gray-900">
-    <input class="flex-1 p-2 rounded" id="chatMessageInput" placeholder="Type a message..." type="text"/>
-    <button class="p-2 bg-red-600 rounded text-white ml-2" onclick="sendChatMessage()">
-     Send
-    </button>
-   </div>
-  </div>
   <script>
+   function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        function likeVideo(element) {
+            // Implement like functionality
+        }
+
+        function searchVideos() {
+            // Implement search functionality
+        }
+
+        function login() {
+            // Implement login functionality
+        }
+
+        function register() {
+            // Implement register functionality
+        }
+
+        function updateProfilePic() {
+            // Implement profile picture update functionality
+        }
+
+        function updateBio() {
+            // Implement bio update functionality
+        }
+
+        function uploadVideo() {
+            // Implement video upload functionality
+        }
+
+        function adminUploadVideo() {
+            // Implement admin video upload functionality
+        }
+
+        function sendMessage() {
+            // Implement send message functionality
+        }
+
+        function goHome() {
+            // Implement go home functionality
+        }
+
+        function logout() {
+            // Implement logout functionality
+        }
   </script>
  </body>
 </html>
