@@ -77,7 +77,40 @@
     </div>
   </nav>
 
-  <!-- Video Feed -->
+  <!-- Static Video Feed (First Two Videos) -->
+  <div class="container video-feed">
+    <div class="video-card">
+      <video controls>
+        <source src="/static/uploads/sample1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="mt-2">
+        <p><strong>@user1:</strong> Caption for video 1</p>
+        <div class="action-buttons">
+          <button>👍 Like</button>
+          <button>🔗 Share</button>
+          <button>💬 Comment</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <video controls>
+        <source src="/static/uploads/sample2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="mt-2">
+        <p><strong>@user2:</strong> Caption for video 2</p>
+        <div class="action-buttons">
+          <button>👍 Like</button>
+          <button>🔗 Share</button>
+          <button>💬 Comment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Video Feed -->
   <div class="container video-feed">
     {% for video in videos %}
     <div class="video-card">
