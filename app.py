@@ -1,96 +1,123 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
-import os
-from werkzeug.utils import secure_filename
+from flask import Flask, request, jsonify
+import mysql.connector
 
 app = Flask(__name__)
-app.secret_key = '03907be69630555111fe0d7d28bef3571d6caaf6aea1a7cc7a2a06e2cf403cee'
 
-# Simulated database for demonstration
-users = {}
-videos = []
+# Database Configuration
+db_config = {
+    'host': 'sico.mysql.database.azure.com',
+    'port': 3306,
+    'user': 'sico',
+    'password': 'Ola-Mide&2',
+    'database': 'your_database_name'  # Replace with your actual database name
+}
 
-# Path for uploaded videos
-UPLOAD_FOLDER = 'static/uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-ALLOWED_EXTENSIONS = {'mp4', 'mov', 'avi'}
+# Connect to the database
+def get_db_connection():
+    try:
+        connection = mysql.connector.connect(**db_config)
+        return connection
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return None
 
-# Helper function to check allowed file types
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-# Routes
 @app.route('/')
 def home():
-    return render_template('index.html', videos=videos)  # Display uploaded videos
+    return "Welcome to the Video App API"
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        
-        # Check if user already exists
-        if username in users:
-            flash('Username already exists!', 'error')
-            return redirect(url_for('register'))
+# Example route: Fetch all videos
+@app.route('/videos', methods=['GET'])
+def get_videos():
+    connection = get_db_connection()
+    if connection is None:
+        return jsonify({'error': 'Failed to connect to the database'}), 500
 
-        # Save user
-        users[username] = {'email': email, 'password': password}
-        flash('Registration successful! Please log in.', 'success')
-        return redirect(url_for('login'))
+    cursor = connection.cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT * FROM videos")
+        videos = cursor.fetchall()
+        return jsonify(videos)
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return jsonify({'error': 'Failed to fetch videos'}), 500
+    finally:
+        cursor.close()
+        connection.close()
 
-    return render_template('register.html')
+# Example route: Add a new video
+@app.route('/videos', methods=['POST'])
+def add_video():
+    data = request.json
+    title = data.get('title')
+    description = data.get('description')
+    url = data.get('url')
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+    if not all([title, description, url]):
+        return jsonify({'error': 'Missing required fields'}), 400
 
-        # Authenticate user
-        if username in users and users[username]['password'] == password:
-            session['username'] = username
-            flash('Login successful!', 'success')
-            return redirect(url_for('home'))
-        else:
-            flash('Invalid username or password!', 'error')
-    
-    return render_template('login.html')
+    connection = get_db_connection()
+    if connection is None:
+        return jsonify({'error': 'Failed to connect to the database'}), 500
 
-@app.route('/logout')
-def logout():
-    session.pop('username', None)
-    flash('You have been logged out.', 'info')
-    return redirect(url_for('home'))
+    cursor = connection.cursor()
+    try:
+        query = "INSERT INTO videos (title, description, url) VALUES (%s, %s, %s)"
+        cursor.execute(query, (title, description, url))
+        connection.commit()
+        return jsonify({'message': 'Video added successfully'}), 201
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return jsonify({'error': 'Failed to add video'}), 500
+    finally:
+        cursor.close()
+        connection.close()
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
-    if 'username' not in session:
-        flash('Please log in to upload videos.', 'error')
-        return redirect(url_for('login'))
+# Example route: Fetch all comments for a video
+@app.route('/videos/<int:video_id>/comments', methods=['GET'])
+def get_comments(video_id):
+    connection = get_db_connection()
+    if connection is None:
+        return jsonify({'error': 'Failed to connect to the database'}), 500
 
-    if request.method == 'POST':
-        title = request.form['title']
-        file = request.files['file']
+    cursor = connection.cursor(dictionary=True)
+    try:
+        query = "SELECT * FROM comments WHERE video_id = %s"
+        cursor.execute(query, (video_id,))
+        comments = cursor.fetchall()
+        return jsonify(comments)
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return jsonify({'error': 'Failed to fetch comments'}), 500
+    finally:
+        cursor.close()
+        connection.close()
 
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_path)
+# Example route: Add a new comment
+@app.route('/videos/<int:video_id>/comments', methods=['POST'])
+def add_comment(video_id):
+    data = request.json
+    user_id = data.get('user_id')
+    comment_text = data.get('comment')
 
-            # Save video metadata
-            videos.append({'title': title, 'path': file_path, 'user': session['username']})
-            flash('Video uploaded successfully!', 'success')
-            return redirect(url_for('home'))
-        else:
-            flash('Invalid file format! Only MP4, MOV, and AVI files are allowed.', 'error')
+    if not all([user_id, comment_text]):
+        return jsonify({'error': 'Missing required fields'}), 400
 
-    return render_template('upload.html')
+    connection = get_db_connection()
+    if connection is None:
+        return jsonify({'error': 'Failed to connect to the database'}), 500
+
+    cursor = connection.cursor()
+    try:
+        query = "INSERT INTO comments (video_id, user_id, comment) VALUES (%s, %s, %s)"
+        cursor.execute(query, (video_id, user_id, comment_text))
+        connection.commit()
+        return jsonify({'message': 'Comment added successfully'}), 201
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return jsonify({'error': 'Failed to add comment'}), 500
+    finally:
+        cursor.close()
+        connection.close()
 
 if __name__ == '__main__':
-    # Create upload folder if it doesn't exist
-    if not os.path.exists(UPLOAD_FOLDER):
-        os.makedirs(UPLOAD_FOLDER)
-    
     app.run(debug=True)
