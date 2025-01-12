@@ -1,27 +1,17 @@
-<!-- Login Form -->
-<div id="login-form">
-  <h2>Login</h2>
-  <form id="login-form">
-    <label>Email</label>
-    <input type="email" id="login-email" required />
-    <label>Password</label>
-    <input type="password" id="login-password" required />
-    <button type="submit">Login</button>
-  </form>
-  <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
-</div>
-
-<!-- Registration Form -->
-<div id="register-form" style="display: none;">
-  <h2>Register</h2>
-  <form id="register-form">
-    <label>Email</label>
-    <input type="email" id="register-email" required />
-    <label>Password</label>
-    <input type="password" id="register-password" required />
-    <label>Confirm Password</label>
-    <input type="password" id="confirm-password" required />
-    <button type="submit">Register</button>
-  </form>
-  <p>Already have an account? <a href="#" id="show-login">Login</a></p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Data</title>
+</head>
+<body>
+    <form action="submit.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
