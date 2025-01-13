@@ -3,497 +3,406 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   Dynamic Video Sharing Platform
+   TikTok Clone
   </title>
   <script src="https://cdn.tailwindcss.com">
   </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" rel="icon" type="image/svg+xml"/>
   <style>
-   body, html {
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-        }
-        .video-container {
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-        }
-        .video-item {
-            height: 100vh;
-            scroll-snap-align: start;
-            position: relative;
-        }
-        .video-item video {
+   video {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .video-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            padding: 1rem;
-            color: white;
-            background: rgba(0, 0, 0, 0.5);
-            width: 100%;
-        }
-        .video-actions {
-            position: absolute;
-            right: 1rem;
-            bottom: 5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .video-actions i {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            cursor: pointer;
-        }
-        .hidden {
-            display: none;
-        }
-        .camera-container {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: black;
-        }
-        .camera-container video {
-            width: 100%;
-            height: auto;
-        }
-        .camera-controls {
-            position: absolute;
-            bottom: 2rem;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-        .camera-controls button {
-            background: red;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            cursor: pointer;
-        }
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 0.5rem 0;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .bottom-nav i {
-            font-size: 1.5rem;
-            cursor: pointer;
+            border-radius: 0.5rem;
         }
   </style>
  </head>
- <body class="bg-gray-100 font-roboto">
-  <header class="bg-white shadow-md fixed top-0 left-0 right-0 z-10">
-   <div class="container mx-auto px-4 py-2 flex justify-between items-center">
-    <div class="flex items-center">
-     <img alt="App logo with a vibrant and dynamic design" class="h-10 w-10" src="https://placehold.co/50x50"/>
-     <h1 class="text-2xl font-bold ml-2">
-      VidShare
-     </h1>
-     <i class="fas fa-search text-gray-700 ml-4 cursor-pointer">
-     </i>
-    </div>
-    <div>
-     <button class="text-gray-700 hover:text-gray-900" onclick="showSection('signin')">
-      Sign In
-     </button>
-     <button class="text-gray-700 hover:text-gray-900" onclick="showSection('register')">
-      Register
-     </button>
+ <body class="bg-gray-900 text-white">
+  <div class="flex justify-center py-4">
+   <img alt="TikTok logo" class="h-8" src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg"/>
+  </div>
+  <div class="max-w-md mx-auto space-y-4">
+   <div class="bg-gray-800 rounded-lg p-4">
+    <video class="video" controls="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+    </video>
+   </div>
+   <div class="bg-gray-800 rounded-lg p-4">
+    <video class="video" controls="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+    </video>
+    <div class="flex justify-between items-center mt-2">
+     <div class="flex items-center space-x-1">
+      <i class="fas fa-heart">
+      </i>
+      <span>
+       1.2k
+      </span>
+     </div>
+     <div class="flex items-center space-x-1">
+      <i class="fas fa-comment">
+      </i>
+      <span>
+       300
+      </span>
+     </div>
     </div>
    </div>
-  </header>
-  <main class="mt-16">
-   <section class="video-container" id="home">
-    <div class="video-item">
-     <video controls="">
-      <source src="https://placehold.co/300x300" type="video/mp4"/>
-      Your browser does not support the video tag.
-     </video>
-     <div class="video-info">
-      <h3 class="text-lg font-semibold">
-       Amazing Dance Moves
-      </h3>
-      <p>
-       By User123
-      </p>
-     </div>
-     <div class="video-actions">
-      <i class="fas fa-heart text-red-500" onclick="alert('Liked!')">
-       1.2K
-      </i>
-      <i class="fas fa-comment text-gray-500" onclick="alert('Commented!')">
-       300
-      </i>
-      <i class="fas fa-share text-gray-500" onclick="alert('Shared!')">
-      </i>
-      <i class="fas fa-reply text-gray-500" onclick="alert('Reacted!')">
-      </i>
-     </div>
-    </div>
-    <div class="video-item">
-     <video controls="">
-      <source src="https://placehold.co/300x300" type="video/mp4"/>
-      Your browser does not support the video tag.
-     </video>
-     <div class="video-info">
-      <h3 class="text-lg font-semibold">
-       Funny Cat Compilation
-      </h3>
-      <p>
-       By CatLover
-      </p>
-     </div>
-     <div class="video-actions">
-      <i class="fas fa-heart text-red-500" onclick="alert('Liked!')">
-       2.5K
-      </i>
-      <i class="fas fa-comment text-gray-500" onclick="alert('Commented!')">
-       500
-      </i>
-      <i class="fas fa-share text-gray-500" onclick="alert('Shared!')">
-      </i>
-      <i class="fas fa-reply text-gray-500" onclick="alert('Reacted!')">
-      </i>
-     </div>
-    </div>
-    <div class="video-item">
-     <video controls="">
-      <source src="https://placehold.co/300x300" type="video/mp4"/>
-      Your browser does not support the video tag.
-     </video>
-     <div class="video-info">
-      <h3 class="text-lg font-semibold">
-       Travel Vlog
-      </h3>
-      <p>
-       By Traveler
-      </p>
-     </div>
-     <div class="video-actions">
-      <i class="fas fa-heart text-red-500" onclick="alert('Liked!')">
-       3.1K
-      </i>
-      <i class="fas fa-comment text-gray-500" onclick="alert('Commented!')">
-       800
-      </i>
-      <i class="fas fa-share text-gray-500" onclick="alert('Shared!')">
-      </i>
-      <i class="fas fa-reply text-gray-500" onclick="alert('Reacted!')">
-      </i>
-     </div>
-    </div>
-   </section>
-   <section class="hidden" id="discover">
-    <div class="container mx-auto px-4 py-6">
-     <h2 class="text-xl font-semibold mb-4">
-      Discover
-     </h2>
-     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
-       <video class="w-full h-64" controls="">
-        <source src="https://placehold.co/300x300" type="video/mp4"/>
-        Your browser does not support the video tag.
-       </video>
-       <div class="p-4">
-        <h3 class="text-lg font-semibold">
-         Amazing Dance Moves
-        </h3>
-        <p class="text-gray-600">
-         By User123
-        </p>
-        <div class="flex justify-between items-center mt-2">
-         <div class="flex items-center space-x-2">
-          <i class="fas fa-heart text-red-500">
-          </i>
-          <span>
-           1.2K
-          </span>
-         </div>
-         <div class="flex items-center space-x-2">
-          <i class="fas fa-comment text-gray-500">
-          </i>
-          <span>
-           300
-          </span>
-         </div>
-        </div>
-       </div>
-      </div>
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
-       <video class="w-full h-64" controls="">
-        <source src="https://placehold.co/300x300" type="video/mp4"/>
-        Your browser does not support the video tag.
-       </video>
-       <div class="p-4">
-        <h3 class="text-lg font-semibold">
-         Funny Cat Compilation
-        </h3>
-        <p class="text-gray-600">
-         By CatLover
-        </p>
-        <div class="flex justify-between items-center mt-2">
-         <div class="flex items-center space-x-2">
-          <i class="fas fa-heart text-red-500">
-          </i>
-          <span>
-           2.5K
-          </span>
-         </div>
-         <div class="flex items-center space-x-2">
-          <i class="fas fa-comment text-gray-500">
-          </i>
-          <span>
-           500
-          </span>
-         </div>
-        </div>
-       </div>
-      </div>
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
-       <video class="w-full h-64" controls="">
-        <source src="https://placehold.co/300x300" type="video/mp4"/>
-        Your browser does not support the video tag.
-       </video>
-       <div class="p-4">
-        <h3 class="text-lg font-semibold">
-         Travel Vlog
-        </h3>
-        <p class="text-gray-600">
-         By Traveler
-        </p>
-        <div class="flex justify-between items-center mt-2">
-         <div class="flex items-center space-x-2">
-          <i class="fas fa-heart text-red-500">
-          </i>
-          <span>
-           3.1K
-          </span>
-         </div>
-         <div class="flex items-center space-x-2">
-          <i class="fas fa-comment text-gray-500">
-          </i>
-          <span>
-           800
-          </span>
-         </div>
-        </div>
-       </div>
-      </div>
-     </div>
-    </div>
-   </section>
-   <section class="hidden camera-container" id="upload">
-    <video autoplay="" id="camera-stream" playsinline="">
+   <div class="bg-gray-800 rounded-lg p-4">
+    <video class="video" controls="" src="https://www.w3schools.com/html/mov_bbb.mp4">
     </video>
-    <div class="camera-controls">
-     <button id="capture-button">
+    <div class="flex justify-between items-center mt-2">
+     <div class="flex items-center space-x-1">
+      <i class="fas fa-heart">
+      </i>
+      <span>
+       1.2k
+      </span>
+     </div>
+     <div class="flex items-center space-x-1">
+      <i class="fas fa-comment">
+      </i>
+      <span>
+       300
+      </span>
+     </div>
+    </div>
+   </div>
+   <div class="bg-gray-800 rounded-lg p-4">
+    <video class="video" controls="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+    </video>
+    <div class="flex justify-between items-center mt-2">
+     <div class="flex items-center space-x-1">
+      <i class="fas fa-heart">
+      </i>
+      <span>
+       1.2k
+      </span>
+     </div>
+     <div class="flex items-center space-x-1">
+      <i class="fas fa-comment">
+      </i>
+      <span>
+       300
+      </span>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="fixed bottom-0 left-0 right-0 bg-gray-800 p-4">
+   <div class="flex justify-around">
+    <div class="flex flex-col items-center">
+     <i class="fas fa-home text-xl" onclick="navigateTo('home')">
+     </i>
+     <span class="text-xs">
+      Home
+     </span>
+    </div>
+    <div class="flex flex-col items-center">
+     <i class="fas fa-search text-xl" onclick="navigateTo('discover')">
+     </i>
+     <span class="text-xs">
+      Discover
+     </span>
+    </div>
+    <div class="flex flex-col items-center">
+     <i class="fas fa-plus-square text-xl" onclick="openUploadModal()">
+     </i>
+     <span class="text-xs">
+      Create
+     </span>
+    </div>
+    <div class="flex flex-col items-center">
+     <i class="fas fa-inbox text-xl" onclick="navigateTo('inbox')">
+     </i>
+     <span class="text-xs">
+      Inbox
+     </span>
+    </div>
+    <div class="flex flex-col items-center" onclick="openProfileModal()">
+     <img alt="User profile" class="h-6 w-6 rounded-full" src="https://placehold.co/50x50"/>
+     <span class="text-xs">
+      Profile
+     </span>
+    </div>
+   </div>
+  </div>
+  <!-- Mode Switcher -->
+  <div class="fixed top-4 right-4">
+   <select class="bg-gray-800 text-white p-2 rounded" id="modeSwitcher" onchange="switchMode()">
+    <option value="dark">
+     Dark Mode
+    </option>
+    <option value="black">
+     Black Mode
+    </option>
+    <option value="tiktok">
+     TikTok Mode
+    </option>
+   </select>
+  </div>
+  <!-- Upload Modal -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden" id="uploadModal">
+   <div class="bg-gray-800 p-4 rounded-lg">
+    <h2 class="text-lg mb-4">
+     Upload Video
+    </h2>
+    <input accept="video/*" class="mb-4" id="videoUpload" type="file"/>
+    <button class="bg-blue-500 px-4 py-2 rounded" onclick="uploadVideo()">
+     Upload
+    </button>
+    <button class="bg-red-500 px-4 py-2 rounded ml-2" onclick="closeUploadModal()">
+     Cancel
+    </button>
+   </div>
+  </div>
+  <!-- Profile Modal -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden" id="profileModal">
+   <div class="bg-gray-800 p-4 rounded-lg max-w-md w-full">
+    <div class="flex flex-col items-center">
+     <img alt="User profile large" class="h-24 w-24 rounded-full mb-4" src="https://placehold.co/100x100"/>
+     <h2 class="text-lg mb-2">
+      User Name
+     </h2>
+     <p class="text-sm text-gray-400 mb-4">
+      @username
+     </p>
+     <div class="flex space-x-4 mb-4">
+      <div class="text-center">
+       <span class="block text-lg font-bold">
+        150
+       </span>
+       <span class="text-sm text-gray-400">
+        Following
+       </span>
+      </div>
+      <div class="text-center">
+       <span class="block text-lg font-bold">
+        200k
+       </span>
+       <span class="text-sm text-gray-400">
+        Followers
+       </span>
+      </div>
+      <div class="text-center">
+       <span class="block text-lg font-bold">
+        1.5M
+       </span>
+       <span class="text-sm text-gray-400">
+        Likes
+       </span>
+      </div>
+     </div>
+     <p class="text-center mb-4">
+      This is the user bio. It can be a few lines long and gives a brief description about the user.
+     </p>
+     <button class="bg-blue-500 px-2 py-1 rounded mb-2" onclick="updateProfile()">
+      Edit Profile
+     </button>
+     <button class="bg-red-500 px-4 py-2 rounded" onclick="closeProfileModal()">
+      Close
      </button>
     </div>
     <div class="mt-4">
-     <label class="block text-white text-sm font-bold mb-2" for="video-upload">
-      Or Upload a Video
-     </label>
-     <input accept="video/*" class="text-white" id="video-upload" type="file"/>
-    </div>
-   </section>
-   <section class="hidden" id="profile">
-    <div class="container mx-auto px-4 py-6">
-     <div class="flex items-center mb-4">
-      <img alt="User profile picture" class="h-20 w-20 rounded-full" src="https://placehold.co/100x100"/>
-      <div class="ml-4">
-       <h2 class="text-2xl font-semibold">
-        User123
-       </h2>
-       <p class="text-gray-600">
-        @user123
-       </p>
-      </div>
-     </div>
-     <div class="flex justify-between mb-4">
-      <div class="text-center">
-       <h3 class="text-lg font-semibold">
-        150
-       </h3>
-       <p class="text-gray-600">
-        Following
-       </p>
-      </div>
-      <div class="text-center">
-       <h3 class="text-lg font-semibold">
-        1.2K
-       </h3>
-       <p class="text-gray-600">
-        Followers
-       </p>
-      </div>
-      <div class="text-center">
-       <h3 class="text-lg font-semibold">
-        3.4K
-       </h3>
-       <p class="text-gray-600">
-        Likes
-       </p>
-      </div>
-     </div>
-     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
-       <video class="w-full h-64" controls="">
-        <source src="https://placehold.co/300x300" type="video/mp4"/>
-        Your browser does not support the video tag.
-       </video>
-       <div class="p-4">
-        <h3 class="text-lg font-semibold">
-         Amazing Dance Moves
-        </h3>
-        <p class="text-gray-600">
-         1.2K Likes
-        </p>
-       </div>
-      </div>
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
-       <video class="w-full h-64" controls="">
-        <source src="https://placehold.co/300x300" type="video/mp4"/>
-        Your browser does not support the video tag.
-       </video>
-       <div class="p-4">
-        <h3 class="text-lg font-semibold">
-         Funny Cat Compilation
-        </h3>
-        <p class="text-gray-600">
-         2.5K Likes
-        </p>
-       </div>
-      </div>
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
-       <video class="w-full h-64" controls="">
-        <source src="https://placehold.co/300x300" type="video/mp4"/>
-        Your browser does not support the video tag.
-       </video>
-       <div class="p-4">
-        <h3 class="text-lg font-semibold">
-         Travel Vlog
-        </h3>
-        <p class="text-gray-600">
-         3.1K Likes
-        </p>
-       </div>
-      </div>
+     <h3 class="text-lg mb-2">
+      Uploaded Videos
+     </h3>
+     <div class="grid grid-cols-3 gap-2">
+      <video class="video" controls="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+      </video>
+      <video class="video" controls="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+      </video>
+      <video class="video" controls="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+      </video>
+      <video class="video" controls="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+      </video>
+      <video class="video" controls="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+      </video>
+      <video class="video" controls="" src="https://www.w3schools.com/html/mov_bbb.mp4">
+      </video>
      </div>
     </div>
-   </section>
-   <section class="hidden" id="signin">
-    <div class="container mx-auto px-4 py-6 flex justify-center items-center h-screen">
-     <div class="w-full max-w-md">
-      <h2 class="text-2xl font-semibold mb-4 text-center">
-       Sign In
-      </h2>
-      <form>
-       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-         Email
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email"/>
-       </div>
-       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-         Password
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password"/>
-       </div>
-       <div class="flex items-center justify-between">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-         Sign In
-        </button>
-       </div>
-      </form>
-     </div>
-    </div>
-   </section>
-   <section class="hidden" id="register">
-    <div class="container mx-auto px-4 py-6 flex justify-center items-center h-screen">
-     <div class="w-full max-w-md">
-      <h2 class="text-2xl font-semibold mb-4 text-center">
-       Register
-      </h2>
-      <form>
-       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-         Username
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text"/>
-       </div>
-       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-         Email
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email"/>
-       </div>
-       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-         Password
-        </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password"/>
-       </div>
-       <div class="flex items-center justify-between">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-         Register
-        </button>
-       </div>
-      </form>
-     </div>
-    </div>
-   </section>
-  </main>
-  <footer class="bottom-nav">
-   <i class="fas fa-home" onclick="showSection('home')">
-   </i>
-   <i class="fas fa-search" onclick="showSection('discover')">
-   </i>
-   <i class="fas fa-plus-circle" onclick="showSection('upload')">
-   </i>
-   <i class="fas fa-user" onclick="showSection('profile')">
-   </i>
-  </footer>
+   </div>
+  </div>
+  <!-- Sign In Modal -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden" id="signInModal">
+   <div class="bg-gray-800 p-4 rounded-lg">
+    <h2 class="text-lg mb-4">
+     Sign In
+    </h2>
+    <input class="mb-4 p-2 w-full bg-gray-700 rounded" id="signInEmail" placeholder="Email" type="email"/>
+    <input class="mb-4 p-2 w-full bg-gray-700 rounded" id="signInPassword" placeholder="Password" type="password"/>
+    <button class="bg-blue-500 px-4 py-2 rounded" onclick="signIn()">
+     Sign In
+    </button>
+    <button class="bg-red-500 px-4 py-2 rounded ml-2" onclick="closeSignInModal()">
+     Cancel
+    </button>
+    <p class="mt-4 text-sm">
+     Don't have an account?
+     <span class="text-blue-500 cursor-pointer" onclick="openRegisterModal()">
+      Register
+     </span>
+    </p>
+   </div>
+  </div>
+  <!-- Register Modal -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden" id="registerModal">
+   <div class="bg-gray-800 p-4 rounded-lg">
+    <h2 class="text-lg mb-4">
+     Register
+    </h2>
+    <input class="mb-4 p-2 w-full bg-gray-700 rounded" id="registerEmail" placeholder="Email" type="email"/>
+    <input class="mb-4 p-2 w-full bg-gray-700 rounded" id="registerPassword" placeholder="Password" type="password"/>
+    <input class="mb-4 p-2 w-full bg-gray-700 rounded" id="registerConfirmPassword" placeholder="Confirm Password" type="password"/>
+    <button class="bg-blue-500 px-4 py-2 rounded" onclick="register()">
+     Register
+    </button>
+    <button class="bg-red-500 px-4 py-2 rounded ml-2" onclick="closeRegisterModal()">
+     Cancel
+    </button>
+    <p class="mt-4 text-sm">
+     Already have an account?
+     <span class="text-blue-500 cursor-pointer" onclick="openSignInModal()">
+      Sign In
+     </span>
+    </p>
+   </div>
+  </div>
   <script>
-   function showSection(sectionId) {
-        document.querySelectorAll('main > section').forEach(section => {
-            section.classList.add('hidden');
+   document.addEventListener('DOMContentLoaded', function () {
+            const videos = document.querySelectorAll('.video');
+
+            const playVideo = (video) => {
+                video.play();
+            };
+
+            const pauseVideo = (video) => {
+                video.pause();
+            };
+
+            const handleIntersection = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        playVideo(entry.target);
+                    } else {
+                        pauseVideo(entry.target);
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(handleIntersection, {
+                threshold: 0.5
+            });
+
+            videos.forEach(video => {
+                observer.observe(video);
+            });
         });
-        document.getElementById(sectionId).classList.remove('hidden');
-    }
 
-    // Camera functionality for the upload section
-    const cameraStream = document.getElementById('camera-stream');
-    const captureButton = document.getElementById('capture-button');
+        function navigateTo(page) {
+            alert(`Navigate to ${page}`);
+            // Implement navigation logic here
+        }
 
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-            cameraStream.srcObject = stream;
-            cameraStream.play();
-        });
-    }
+        function openUploadModal() {
+            document.getElementById('uploadModal').classList.remove('hidden');
+        }
 
-    captureButton.addEventListener('click', function() {
-        alert('Video captured!');
-    });
+        function closeUploadModal() {
+            document.getElementById('uploadModal').classList.add('hidden');
+        }
+
+        function uploadVideo() {
+            const videoFile = document.getElementById('videoUpload').files[0];
+            if (videoFile) {
+                alert('Video uploaded successfully!');
+                // Implement video upload logic here
+                closeUploadModal();
+            } else {
+                alert('Please select a video file.');
+            }
+        }
+
+        function openProfileModal() {
+            document.getElementById('profileModal').classList.remove('hidden');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.add('hidden');
+        }
+
+        function updateProfile() {
+            const profilePic = document.getElementById('profilePicUpload').files[0];
+            const bio = document.getElementById('bio').value;
+            if (profilePic || bio) {
+                alert('Profile updated successfully!');
+                // Implement profile update logic here
+                closeProfileModal();
+            } else {
+                alert('Please update profile picture or bio.');
+            }
+        }
+
+        function openSignInModal() {
+            document.getElementById('signInModal').classList.remove('hidden');
+            document.getElementById('registerModal').classList.add('hidden');
+        }
+
+        function closeSignInModal() {
+            document.getElementById('signInModal').classList.add('hidden');
+        }
+
+        function signIn() {
+            const email = document.getElementById('signInEmail').value;
+            const password = document.getElementById('signInPassword').value;
+            if (email && password) {
+                alert('Signed in successfully!');
+                // Implement sign-in logic here
+                closeSignInModal();
+            } else {
+                alert('Please enter email and password.');
+            }
+        }
+
+        function openRegisterModal() {
+            document.getElementById('registerModal').classList.remove('hidden');
+            document.getElementById('signInModal').classList.add('hidden');
+        }
+
+        function closeRegisterModal() {
+            document.getElementById('registerModal').classList.add('hidden');
+        }
+
+        function register() {
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            if (email && password && confirmPassword) {
+                if (password === confirmPassword) {
+                    alert('Registered successfully!');
+                    // Implement registration logic here
+                    closeRegisterModal();
+                } else {
+                    alert('Passwords do not match.');
+                }
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        function switchMode() {
+            const mode = document.getElementById('modeSwitcher').value;
+            const body = document.body;
+
+            if (mode === 'dark') {
+                body.classList.remove('bg-black', 'bg-tiktok');
+                body.classList.add('bg-gray-900');
+            } else if (mode === 'black') {
+                body.classList.remove('bg-gray-900', 'bg-tiktok');
+                body.classList.add('bg-black');
+            } else if (mode === 'tiktok') {
+                body.classList.remove('bg-gray-900', 'bg-black');
+                body.classList.add('bg-tiktok');
+            }
+        }
   </script>
  </body>
 </html>
