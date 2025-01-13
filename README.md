@@ -1,6 +1,6 @@
 ________________________________________
-PikOne
-PikOne is a TikTok-like web application that allows users to register, log in, upload videos, and interact with content by liking, sharing, and commenting on videos. It is built using Flask, HTML, CSS, and JavaScript, with SQLite for database management.
+Tiktok clone
+TikTok clone is a TikTok-like web application that allows users to register, log in, upload videos, and interact with content by liking, sharing, and commenting on videos. It is built using Flask, HTML, CSS, and JavaScript, with SQLite for database management.
 ________________________________________
 Features
 •	User Registration and Login: Secure user authentication system.
